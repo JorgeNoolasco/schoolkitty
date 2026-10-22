@@ -20,28 +20,4 @@
         try { await navigator.clipboard.writeText(document.getElementById(button.dataset.copy)?.textContent || ""); toast("Comando copiado com carinho! ♡") }
         catch { toast("Selecione o comando e copie manualmente.") }
     }));
-    const data = {
-        alunos: { title: "Alunos", fields: ["id_aluno", "nome_aluno", "email_aluno", "telefone_aluno"] },
-        professores: { title: "Professores", fields: ["id_professor", "nome_professor", "email_professor", "especialidade_professor"] },
-        cursos: { title: "Cursos", fields: ["id_curso", "nome_curso", "descricao_curso", "cargahoraria_curso"] },
-        turmas: { title: "Turmas", fields: ["id_turma", "id_curso", "id_professor", "ano_letivo", "semestre_turma", "turno_turma"] },
-        matriculas: { title: "Matrículas", fields: ["id_matricula", "id_aluno", "id_turma", "data_matricula", "situacao_matricula"] },
-        notas: { title: "Notas", fields: ["id_nota", "id_matricula", "descricao_nota", "valor_nota", "data_nota"] }
-    };
-    let current = "alunos", sequence = 0;
-    function empty(message) { $("#recordsBody").replaceChildren(); const tr = document.createElement("tr"), td = document.createElement("td"); td.colSpan = data[current].fields.length; td.className = "records-message"; td.textContent = message; tr.append(td); $("#recordsBody").append(tr) }
-    function render(response) {
-        const fields = data[current].fields, rows = Array.isArray(response) ? response : response?.items || response?.data || [];
-        $("#recordsHead").replaceChildren(); $("#recordsBody").replaceChildren();
-        const hr = document.createElement("tr"); fields.forEach(field => { const th = document.createElement("th"); th.scope = "col"; th.textContent = field; hr.append(th) }); $("#recordsHead").append(hr);
-        if (!rows.length) return empty("A API respondeu sem registros para esta entidade.");
-        rows.slice(0, 50).forEach(record => { const tr = document.createElement("tr"); fields.forEach(field => { const td = document.createElement("td"); td.textContent = record?.[field] == null ? "—" : String(record[field]); tr.append(td) }); $("#recordsBody").append(tr) });
-    }
-    async function load() {
-        const id = ++sequence; $("#recordsTitle").textContent = data[current].title; $("#recordsHead").replaceChildren(); empty("Carregando registros…");
-        try { const response = await SchoolAPI.get("/" + current); if (id !== sequence) return; render(response); $("#apiStatus").classList.add("online"); $("#apiStatus").querySelector("span:last-child").textContent = "API conectada · consulta de leitura" }
-        catch (error) { if (id !== sequence) return; empty(error.message + " Verifique URL e contrato da API."); $("#apiStatus").classList.remove("online"); $("#apiStatus").querySelector("span:last-child").textContent = "API indisponível · sem dados simulados" }
-    }
-    document.querySelectorAll("[data-resource]").forEach(button => button.addEventListener("click", () => { current = button.dataset.resource; document.querySelectorAll("[data-resource]").forEach(tab => tab.classList.toggle("active", tab === button)); load() }));
-    $("#reloadRecords").addEventListener("click", load); load();
 })();

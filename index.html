@@ -14,8 +14,6 @@
     href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <script src="config.js" defer></script>
-  <script src="api.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 
@@ -27,16 +25,17 @@
     <nav class="main-nav" id="mainNav" aria-label="Navegação principal"><a href="#inicio">Início</a><a
         href="#fundamentos">Fundamentos</a><a href="#modelos">Modelos</a><a href="#modelagem">Modelagem</a><a
         href="#sql">SQL</a><a href="#gerenciamento">Gerenciamento</a><a href="#sgdbs">SGBDs</a><a
-        href="#conclusao">Conclusão</a></nav><a class="header-charm" href="#modelagem"
-      aria-label="Ir para modelagem">♡</a>
+        href="#conclusao">Conclusão</a></nav><a class="header-charm" href="login.html"
+      aria-label="Acessar sistema">Entrar</a>
   </header>
   <main>
     <section class="hero section-anchor" id="inicio">
       <div class="hero-card">
         <div class="hero-copy"><span class="eyebrow">✦ UM PROJETO FOFO, COM DADOS BEM ORGANIZADOS</span>
           <h1>Escola Kawaii <span>— Nosso mundinho<br>de Banco de Dados</span></h1>
-          <p>Organizando alunos, professores, cursos, turmas e notas de um jeitinho inteligente e especial!</p><a
-            class="button button-pink" href="#fundamentos">Explorar projeto →</a>
+          <p>Uma proposta de modernização do gerenciamento acadêmico com banco de dados relacional para organizar alunos, professores, cursos, turmas, matrículas e notas.</p><a
+            class="button button-pink" href="#fundamentos">Conhecer o projeto →</a> <a
+            class="button button-pink" href="login.html">Acessar sistema →</a>
           <div class="hero-tags"><span>♡ Modelo relacional</span><span>✿ SQL na prática</span><span>☆ SENAI CTTI</span>
           </div>
         </div>
@@ -73,6 +72,18 @@
           demonstra como modelagem e SQL ajudam a resolver o problema.</p>
       </div>
     </section>
+    <section class="section section-tint">
+      <div class="section-heading"><span class="section-label">PROPOSTA DE MELHORIA</span>
+        <h2>O que a gestão pode reunir</h2>
+        <p>Estas são as funcionalidades previstas para a solução. O painel deste protótipo consulta dados; cadastros e alterações ainda não estão disponíveis.</p>
+      </div>
+      <div class="concept-grid">
+        <article class="concept-card"><h3>♡ Alunos e professores</h3><p>Cadastro e consulta de informações acadêmicas e de contato.</p></article>
+        <article class="concept-card"><h3>✿ Cursos e turmas</h3><p>Organização de ofertas, períodos letivos e docentes vinculados.</p></article>
+        <article class="concept-card"><h3>☆ Matrículas</h3><p>Associação de estudantes às turmas, respeitando as regras acadêmicas.</p></article>
+        <article class="concept-card"><h3>▦ Notas e relatórios</h3><p>Consulta de notas e visão integrada por aluno, curso e turma.</p></article>
+      </div>
+    </section>
     <section class="section section-tint section-anchor" id="fundamentos">
       <div class="section-heading"><span class="section-label">01 · CONCEITOS E FUNDAMENTOS</span>
         <h2>Os primeiros passinhos ♡</h2>
@@ -87,7 +98,8 @@
         <details class="concept-card">
           <summary><b>✎　Dados, informação e banco</b><span>＋</span></summary>
           <p><strong>Dado:</strong> “Ana”. <strong>Informação:</strong> “Ana está matriculada em Redes, turma 2A”.
-            <strong>Banco:</strong> estrutura persistente que organiza os dados usados para produzir informação.</p>
+            <strong>Banco:</strong> estrutura persistente que organiza os dados usados para produzir informação.
+          </p>
         </details>
         <details class="concept-card">
           <summary><b>⚙　O que é um SGBD?</b><span>＋</span></summary>
@@ -408,40 +420,10 @@ TO 'leitor'@'%';</pre>
     <section class="section section-tint section-anchor" id="gerenciamento">
       <div class="section-heading"><span class="section-label">05 · DO MODELO AOS REGISTROS</span>
         <h2>Gerenciamento escolar 🧸</h2>
-        <p>CRUD: criar, consultar, atualizar e excluir. Abaixo, consulta via API; escrita exige backend autenticado e
-          autorizado.</p>
+        <p>O painel oferece consultas de leitura protegidas por login. As operações de cadastro e alteração ainda são uma proposta.</p>
       </div>
-      <div class="api-status" id="apiStatus"><span class="status-dot"></span><span>Verificando disponibilidade da
-          API…</span></div>
-      <div class="resource-toolbar" role="tablist" aria-label="Entidades escolares"><button class="resource-tab active"
-          data-resource="alunos">Alunos</button><button class="resource-tab"
-          data-resource="professores">Professores</button><button class="resource-tab"
-          data-resource="cursos">Cursos</button><button class="resource-tab"
-          data-resource="turmas">Turmas</button><button class="resource-tab"
-          data-resource="matriculas">Matrículas</button><button class="resource-tab"
-          data-resource="notas">Notas</button></div>
-      <div class="records-card">
-        <div class="records-heading">
-          <div><span class="section-label">CONSULTA DE REGISTROS</span>
-            <h3 id="recordsTitle">Alunos</h3>
-          </div><button class="button button-outline" id="reloadRecords">↻ Atualizar</button>
-        </div>
-        <div class="records-table-wrap">
-          <table class="records-table">
-            <thead id="recordsHead"></thead>
-            <tbody id="recordsBody">
-              <tr>
-                <td class="records-message">Conectando à API…</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="records-footnote">Somente leitura via API. Nenhum dado de demonstração é inserido. Operações de
-          escrita ficam desativadas sem API e autenticação reais.</p>
-      </div>
-      <div class="crud-flow"><span>1 · CREATE</span><i>→</i><span>2 · READ</span><i>→</i><span>3 ·
-          UPDATE</span><i>→</i><span>4 · DELETE</span><small>O backend deve validar permissões, vínculos e integridade
-          em cada operação.</small></div>
+      <div class="callout blue"><span>▦</span><p>As consultas, indicadores reais e a visão integrada ficam disponíveis depois da autenticação. A conexão requer o banco da instituição e suas credenciais privadas.</p></div>
+      <p style="text-align:center;margin-top:22px"><a class="button button-pink" href="login.html">Acessar sistema →</a></p>
     </section>
     <section class="section section-anchor" id="sgdbs">
       <div class="section-heading"><span class="section-label">06 · CINCO SISTEMAS, CINCO PERSONALIDADES</span>
@@ -542,6 +524,12 @@ TO 'leitor'@'%';</pre>
             target="_blank" rel="noopener">Edições Db2</a></p>
       </div>
     </section>
+    <section class="section section-tint">
+      <div class="section-heading"><span class="section-label">TECNOLOGIAS DO PROTÓTIPO</span>
+        <h2>Feito com tecnologias web</h2>
+        <p>HTML, CSS e JavaScript no site; Node.js nas funções de servidor; MySQL 8.0 como banco esperado para integração, ainda dependente de configuração.</p>
+      </div>
+    </section>
     <section class="conclusion section-anchor" id="conclusao">
       <div class="conclusion-mascot"><img src="assets/kawaii-mascot.svg" alt="Gatinho estudioso segurando um lápis">
       </div>
@@ -567,4 +555,3 @@ TO 'leitor'@'%';</pre>
 </body>
 
 </html>
-
