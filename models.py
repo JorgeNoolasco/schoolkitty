@@ -1,8 +1,8 @@
 """Mapeamento do esquema existente, sem executar create_all na aplicação."""
-from datetime import date
+from datetime import date, datetime
 from decimal import Decimal
 
-from sqlalchemy import CHAR, CheckConstraint, Date, ForeignKey, Index, Integer, Numeric, String, UniqueConstraint
+from sqlalchemy import CHAR, CheckConstraint, Date, DateTime, ForeignKey, Index, Integer, Numeric, String, Text, UniqueConstraint
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -90,3 +90,77 @@ class Nota(Base):
     valor_nota: Mapped[Decimal] = mapped_column(Numeric(4, 2))
     data_nota: Mapped[date] = mapped_column(Date)
     matricula: Mapped[Matricula] = relationship(back_populates='notas')
+
+
+class Usuario(Base):
+    """Conta de acesso associada a um aluno ou professor existente."""
+    __tablename__ = 'usuario'
+    __table_args__ = (
+        CheckConstraint("perfil IN ('administrador','professor','aluno')", name='ck_usuario_perfil'),
+        CheckConstraint('(perfil = \'administrador\' AND id_aluno IS NULL AND id_professor IS NULL) OR '
+                        '(perfil = \'aluno\' AND id_aluno IS NOT NULL AND id_professor IS NULL) OR '
+                        '(perfil = \'professor\' AND id_professor IS NOT NULL AND id_aluno IS NULL)',
+                        name='ck_usuario_vinculo_perfil'),
+        UniqueConstraint('id_aluno', name='uq_usuario_aluno'),
+        UniqueConstraint('id_professor', name='uq_usuario_professor'),
+    )
+    id_usuario: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    email: Mapped[str] = mapped_column(String(100), unique=True)
+    senha_hash: Mapped[str] = mapped_column(String(255))
+    perfil: Mapped[str] = mapped_column(String(20))
+    id_aluno: Mapped[int | None] = mapped_column(ForeignKey('aluno.id_aluno', ondelete='RESTRICT'))
+    id_professor: Mapped[int | None] = mapped_column(ForeignKey('professor.id_professor', ondelete='RESTRICT'))
+    ativo: Mapped[int] = mapped_column(Integer, default=1)
+    criado_em: Mapped[datetime] = mapped_column(DateTime)
+
+
+class Atividade(Base):
+    __tablename__ = 'atividade'
+    __table_args__ = (CheckConstraint('pontuacao_maxima > 0 AND pontuacao_maxima <= 1000', name='ck_atividade_pontos'),
+                      Index('idx_atividade_entrega', 'id_turma', 'data_entrega'))
+    id_atividade: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    id_turma: Mapped[int] = mapped_column(ForeignKey('turma.id_turma', ondelete='RESTRICT'))
+    id_professor: Mapped[int] = mapped_column(ForeignKey('professor.id_professor', ondelete='RESTRICT'))
+    titulo: Mapped[str] = mapped_column(String(150))
+    descricao: Mapped[str] = mapped_column(Text)
+    instrucoes: Mapped[str] = mapped_column(Text)
+    publicada_em: Mapped[datetime] = mapped_column(DateTime)
+    data_entrega: Mapped[datetime] = mapped_column(DateTime)
+    pontuacao_maxima: Mapped[Decimal] = mapped_column(Numeric(7, 2))
+
+
+class EntregaAtividade(Base):
+    __tablename__ = 'entrega_atividade'
+    __table_args__ = (UniqueConstraint('id_atividade', 'id_aluno', name='uq_entrega_atividade_aluno'),
+                      CheckConstraint('nota IS NULL OR nota >= 0', name='ck_entrega_nota_nao_negativa'))
+    id_entrega: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    id_atividade: Mapped[int] = mapped_column(ForeignKey('atividade.id_atividade', ondelete='RESTRICT'))
+    id_aluno: Mapped[int] = mapped_column(ForeignKey('aluno.id_aluno', ondelete='RESTRICT'))
+    resposta: Mapped[str] = mapped_column(Text)
+    entregue_em: Mapped[datetime] = mapped_column(DateTime)
+    nota: Mapped[Decimal | None] = mapped_column(Numeric(7, 2))
+    feedback: Mapped[str | None] = mapped_column(Text)
+    avaliada_em: Mapped[datetime | None] = mapped_column(DateTime)
+
+
+class Aviso(Base):
+    __tablename__ = 'aviso'
+    __table_args__ = (Index('idx_aviso_turma_data', 'id_turma', 'publicado_em'),)
+    id_aviso: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    id_turma: Mapped[int] = mapped_column(ForeignKey('turma.id_turma', ondelete='RESTRICT'))
+    id_professor: Mapped[int] = mapped_column(ForeignKey('professor.id_professor', ondelete='RESTRICT'))
+    titulo: Mapped[str] = mapped_column(String(150))
+    mensagem: Mapped[str] = mapped_column(Text)
+    publicado_em: Mapped[datetime] = mapped_column(DateTime)
+
+
+class EventoCalendario(Base):
+    __tablename__ = 'evento_calendario'
+    __table_args__ = (Index('idx_evento_data', 'inicio_em'),)
+    id_evento: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    id_turma: Mapped[int | None] = mapped_column(ForeignKey('turma.id_turma', ondelete='RESTRICT'))
+    id_criador: Mapped[int] = mapped_column(ForeignKey('usuario.id_usuario', ondelete='RESTRICT'))
+    titulo: Mapped[str] = mapped_column(String(150))
+    descricao: Mapped[str | None] = mapped_column(Text)
+    inicio_em: Mapped[datetime] = mapped_column(DateTime)
+    fim_em: Mapped[datetime | None] = mapped_column(DateTime)

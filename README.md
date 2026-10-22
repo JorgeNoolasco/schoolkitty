@@ -53,6 +53,8 @@ Em Linux/macOS, ative com `source .venv/bin/activate` e copie com `cp .env.examp
 
 A aplicação não chama `create_all`, não executa DDL, não importa o seed e não exclui tabelas na inicialização. O mapeamento SQLAlchemy usa as tabelas existentes.
 
+Para preparar o esquema aditivo do Classroom em um banco existente, revise e execute manualmente `sql/migrations/001_classroom.sql` pelo MySQL Workbench, após fazer backup. A migração preserva as seis tabelas legadas e cria as tabelas de contas, atividades, entregas, avisos e eventos. Ela deve ser aplicada uma única vez. Os modelos ORM já reconhecem essas tabelas, mas os fluxos de autenticação e Classroom ainda não estão ligados às páginas/rotas.
+
 Para uma **instalação nova**, use MySQL Server 8.0.16+:
 
 1. Inicie MySQL pelo Laragon ou pelo aplicativo Serviços do Windows. Não precisa iniciar Apache. O MariaDB incluído em algumas versões do XAMPP não é o MySQL 8 solicitado.
@@ -142,6 +144,10 @@ Cada requisição tem uma sessão SQLAlchemy. Gravações usam `commit`; conflit
 Credenciais ficam em `.env`, ignorado pelo Git. Somente `/static` é exposto como diretório público: código, `.env`, SQL, testes e templates não são servidos. Não coloque segredos em `/static`. Falhas de banco retornam orientação segura com 503, sem senha ou SQL interno.
 
 O sistema não possui autenticação e destina-se exclusivamente ao uso local. Mantenha o endereço padrão `127.0.0.1`; não exponha publicamente sem autenticação, autorização e controles adicionais. A identidade temática é educacional, sem afiliação oficial à Sanrio.
+
+### Recursos Classroom ainda pendentes
+
+Esta entrega prepara o esquema de dados e os mapeamentos ORM para o Classroom. Ainda faltam login e gestão de contas, autorização por perfil/propriedade, páginas de turmas, mural, atividades, entregas, avaliação e calendário. Portanto, a migração sozinha não habilita esses fluxos e o sistema continua sem autenticação. A coluna `id_professor` legada em `turma` representa um professor por turma nesta versão do esquema.
 
 ## Testes
 
