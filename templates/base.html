@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} · Hello School</title>
+  <link rel="icon" href="/static/img/bow.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="/static/js/script.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+  {% include 'partials/sidebar.html' %}
+  <div class="workspace">
+    <header class="topbar">
+      <div class="breadcrumb">
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navigation">☰</button>
+        <span>Minha escola</span><span class="separator">/</span><strong>{{ title }}</strong>
+      </div>
+      <div class="profile"><span class="local-dot"></span> Ambiente local <span class="avatar">HK</span></div>
+    </header>
+    <main id="conteudo">
+      <div class="page-heading">
+        <div><p class="eyebrow">ORGANIZAR, ENSINAR, INSPIRAR</p><h1>{{ title }}<span class="title-heart">♡</span></h1></div>
+        <span class="date-chip">{{ today.strftime('%d/%m/%Y') }}</span>
+      </div>
+      {% if flash %}<div class="alert {{ flash[0] }}" role="status">{{ flash[1] }}</div>{% endif %}
+      {% if errors %}
+      <div class="alert error" role="alert"><strong>Confira antes de continuar:</strong>
+        <ul>{% for message in errors %}<li>{{ message }}</li>{% endfor %}</ul>
+      </div>
+      {% endif %}
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="footer"><span>Hello School · Gestão escolar com carinho</span><span>Python + MySQL <span class="pink">♡</span></span></footer>
+  </div>
+</body>
+</html>

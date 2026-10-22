@@ -1,0 +1,7 @@
+{% if not linked %}<div class="empty">Nenhum resultado para esta consulta.</div>
+{% else %}
+<div class="table-scroll"><table>
+  <thead><tr>{% for column in linked[0] %}<th>{{ column }}</th>{% endfor %}</tr></thead>
+  <tbody>{% for row in linked %}<tr>{% for value in row.values() %}<td>{{ display(value) }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+</table></div>
+{% endif %}

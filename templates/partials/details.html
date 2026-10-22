@@ -1,0 +1,6 @@
+<section class="panel">
+  <div class="panel-heading"><div><h2>Detalhes de {{ entity.single }} #{{ record_id }}</h2><p>Informações e vínculos do cadastro.</p></div><a class="button" href="{{ url(page, 'edit', record_id) }}">Editar registro</a></div>
+  <dl class="details">{% for name, field in entity.fields.items() %}<div><dt>{{ field.label }}</dt><dd>{{ display(data[name], field, relations) }}</dd></div>{% endfor %}</dl>
+</section>
+{% if page != 'notas' %}<section class="panel"><div class="panel-heading"><h2>{{ linked_title }}</h2></div>{% include 'partials/result_table.html' %}</section>{% endif %}
+<a class="button secondary" href="{{ url(page) }}">← Voltar à listagem</a>

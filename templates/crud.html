@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% if action == 'list' %}{% include 'partials/list.html' %}
+  {% elif action == 'view' %}{% include 'partials/details.html' %}
+  {% elif action == 'delete' %}{% include 'partials/delete.html' %}
+  {% else %}{% include 'partials/form.html' %}{% endif %}
+{% endblock %}

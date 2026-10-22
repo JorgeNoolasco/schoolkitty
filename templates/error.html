@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel empty"><span class="empty-icon">♡</span>
+  {% if connection_error %}
+  <h2>Vamos conectar sua escola?</h2><p>Não foi possível acessar o banco de dados. Confira o serviço MySQL, as credenciais no .env e as instruções do README. Se já possui o banco, mantenha suas tabelas e dados.</p><p>Nenhum dado de demonstração é exibido sem conexão.</p>
+  {% else %}<h2>{{ message }}</h2><p>Use o menu para continuar ou retorne à página inicial.</p>{% endif %}
+  <a class="button" href="/">Voltar ao início</a>
+</section>
+{% endblock %}
