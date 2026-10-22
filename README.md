@@ -1,53 +1,40 @@
-# SchoolKitty
+﻿# Escola Kawaii — Banco de Dados SENAI CTTI
 
-Frontend estático inicial para uma plataforma escolar, feito com HTML, CSS e JavaScript nativos. O repositório entregue estava vazio (sem código de aplicação, esquema SQL ou API); esta base mantém essa distinção explícita. O painel consulta a API por HTTP e informa quando ela não está disponível. Não há dados simulados nem persistência local.
+Site acadêmico responsivo sobre banco de dados, modelagem relacional e SQL. O repositório original estava vazio, sem backend, banco ou esquema SQL; este projeto apresenta o modelo proposto e mantém explícito o que ainda precisa ser conectado.
 
-## Executar localmente
+## Rodar localmente
 
-Abra `index.html` em um servidor estático local. A configuração padrão aponta para `/api`; sem backend, os blocos mostram uma mensagem de indisponibilidade. Para usar um backend separado, edite `config.js`:
+Abra `index.html` em um servidor estático. Configure em `config.js` a URL da API, se houver. A URL padrão é `/api`. A seção Gerenciamento consulta `GET /alunos`, `GET /professores`, `GET /cursos`, `GET /turmas`, `GET /matriculas` e `GET /notas`; os contratos são propostas e não foram verificados contra um servidor.
 
-```js
-window.APP_CONFIG = {
-  API_BASE_URL: "https://seu-backend.vercel.app/api",
-  REQUEST_TIMEOUT_MS: 10000
-};
-```
+Não há operações de escrita no cliente. Para implementar CRUD, o backend deve definir autenticação, autorização, validações e regras de integridade antes de habilitar qualquer escrita.
 
-Não use `localhost` como URL publicada. Não coloque credenciais ou connection strings neste repositório. A autenticação do cliente usa `credentials: "include"` como preparação para cookies de sessão HttpOnly; o servidor também precisa configurar `Secure`, `SameSite`, CSRF e CORS para as origens exatas.
+## Deploy estático na Vercel
 
-## Deploy frontend na Vercel
+Importe o repositório como site estático, com raiz do projeto como diretório e sem build command. `vercel.json` configura somente a entrega estática. Não cria funções Python nem backend. Para front e API separados, use URL HTTPS em `config.js` e CORS restrito à origem publicada. Não use localhost em produção.
 
-Importe o repositório como projeto estático, mantenha a raiz do projeto como diretório raiz e deixe o build command vazio. Configure `API_BASE_URL` no `config.js` com a URL HTTPS real do backend antes do deploy. O `vercel.json` só configura a entrega estática: ele não cria funções Python nem uma API.
+## Conteúdo implementado
 
-## Estrutura
+- Fundamentos: banco, dado/informação, SGBD, vantagens, entidades, atributos e relacionamentos.
+- Modelos hierárquico e relacional com comparação.
+- Modelagem conceitual, lógica e física das entidades ALUNO, PROFESSOR, CURSO, TURMA, MATRICULA e NOTA.
+- Exemplos DDL, DML, DQL, DCL, cinco desafios e VIEW `vw_alunos_cursos_turmas`; comandos apenas copiáveis, não executáveis pelo navegador.
+- Comparação educativa de PostgreSQL, IBM Db2, Firebird, Oracle Database e Microsoft SQL Server, com fontes oficiais na página.
+- Mascote SVG vetorial original, layout responsivo, menu mobile, abas, estados de API e preferência por movimento reduzido.
 
-- `index.html`: painel responsivo.
-- `styles.css`: identidade visual, navegação móvel e componentes.
-- `config.js`: URL e timeout configuráveis.
-- `api.js`: Fetch, timeout, cookies e tratamento de respostas HTTP.
-- `app.js`: navegação e carregamento dos blocos do painel.
-- `vercel.json`: configuração da entrega estática.
+## Modelo e cautelas
 
-## Contrato de API esperado pelo painel
+Os tipos físicos exibidos são uma proposta didática MySQL. O esquema real não foi fornecido. A view pode já existir e deve ser preservada após inspeção. `DECIMAL(2,2)` não comporta nota 10,00; considere `DECIMAL(4,2)` para escala de 0 a 10, mas confirme o tipo real, dependências e autorização antes de preparar/aplicar migração. A restrição UNIQUE de matrícula por aluno/turma também precisa de confirmação pelas regras acadêmicas reais.
 
-Os caminhos abaixo são contratos propostos pelo frontend, não rotas verificadas ou implementadas. As respostas podem ser arrays ou objetos com `items`/`data`.
+Exemplos de INSERT com nomes `Exemplo A/B/C` e e-mails `@exemplo.edu` são somente SQL ilustrativo; não são dados persistidos. `GRANT` é explicativo, sua sintaxe varia por SGBD e deve ser executada apenas por administrador com privilégio mínimo.
 
-| Método | Rota | Uso/campos esperados |
-|---|---|---|
-| GET | `/api/turmas` | Lista; `nome_curso`, `nome_turma`, `nome_professor`, `quantidade_alunos` |
-| GET | `/api/atividades?limit=4` | Lista; `titulo`, `nome_turma`, `prazo`, `status` |
-| GET | `/api/calendario?limit=3` | Lista; `dia`, `mes`, `titulo`, `nome_curso` |
-| GET | `/api/alunos?limit=1` | Lista ou resumo com total |
-| POST | `/api/auth/logout` | Encerra sessão autenticada |
+## Pendências
 
-Use códigos HTTP convencionais (`401`, `403`, `404`, `422`, `429`, `500`) e mensagens públicas seguras. Cadastros e operações de gestão ainda não são enviados pelo painel; precisam dos endpoints reais, autenticação, validação e autorização no backend.
+- Backend FastAPI, conexão remota MySQL e variáveis privadas de ambiente.
+- Confirmar banco `escola_hello_kitty`, entidades, tipos, chaves, regras, view e endpoints reais.
+- Autenticação, autorização e operações CRUD protegidas no servidor.
+- Migração aprovada para tipo de nota, se necessária.
+- PDF e apresentação PowerPoint/Canva são entregas separadas; este site é complementar.
 
-## Backend, banco e pendências
+## Fontes de comparação
 
-Não há backend FastAPI nem conexão MySQL neste checkout. Antes de implementar persistência, confirmar o esquema real, preservar `escola_hello_kitty` e a view `vw_alunos_cursos_turmas`, e conferir tipos e vínculos. `DECIMAL(2,2)` não comporta a faixa 0–10; propor `DECIMAL(4,2)` ou escala definida pelo projeto ao responsável pelo banco antes de alterar qualquer tabela.
-
-O modelo informado não inclui usuários/credenciais, atividades, entregas, eventos nem avisos. Login, papéis, autorização, notas e esses módulos dependem de API e esquema aprovados. Para atividades/entregas será preciso definir tabelas, vínculos, prazos, submissões e feedback. A demonstração da view deve ser feita por endpoint de leitura autenticado. Exemplos DDL, DML, DQL e DCL e scripts SQL também dependem de receber o esquema real; comandos DCL devem ficar em scripts separados, nunca em um editor SQL irrestrito.
-
-## Segurança
-
-O navegador nunca conecta ao MySQL. O backend deve validar entrada, identidade, papel e vínculo do usuário com cada recurso, limitar CORS, proteger sessões contra CSRF e não retornar erros internos. O frontend escapa texto ao renderizar conteúdo externo e aplica timeout nas solicitações. Configure HTTPS em produção.
+Links oficiais usados estão nas fichas de cada produto. Licenciamento, limites e recursos variam por edição/versão. A comparação não afirma benchmarks nem preços específicos.

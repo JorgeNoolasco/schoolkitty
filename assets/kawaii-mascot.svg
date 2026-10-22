@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 390" role="img" aria-labelledby="title desc">
+<title id="title">Gatinho estudante</title><desc id="desc">Ilustração vetorial original de um gatinho creme com laço rosa, livros, lápis e estrelas.</desc>
+<defs><linearGradient id="book" x2="0" y2="1"><stop stop-color="#fff" /><stop offset="1" stop-color="#f6cee0"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#a96d88" flood-opacity=".18"/></filter></defs>
+<circle cx="210" cy="205" r="166" fill="#fff7f7" opacity=".55"/><circle cx="210" cy="205" r="139" fill="#f7e9fc" opacity=".66"/>
+<g fill="#fff" stroke="#f0d7e8" stroke-width="2"><path d="m65 87 5 12 13 1-10 8 3 13-11-7-11 7 3-13-10-8 13-1z"/><path d="m355 118 4 10 11 1-8 7 3 11-10-6-9 6 2-11-8-7 11-1z"/><path d="m335 290 4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z"/></g>
+<g filter="url(#shadow)"><path d="M83 306h253v30H83z" rx="8" fill="#c8b3e7"/><path d="M99 274h221v35H99z" fill="#ffb8d0"/><path d="M116 239h188v39H116z" fill="#ffedbf"/><path d="M124 239v39M108 274v35M93 306v30" stroke="#fff" stroke-width="4" opacity=".8"/><path d="M90 336h237" stroke="#9377aa" stroke-width="3"/></g>
+<g transform="rotate(-12 340 242)" filter="url(#shadow)"><rect x="332" y="178" width="20" height="120" rx="9" fill="#80d5c2"/><path d="M332 189h20" stroke="#fff" stroke-width="5"/><path d="m332 178 10-19 10 19" fill="#f1c88b"/><path d="m338 167 4-8 4 8" fill="#594b5c"/></g>
+<!-- gatinho original -->
+<g filter="url(#shadow)"><path d="M132 183 128 99q-1-15 12-7l50 34M287 183l5-84q1-15-12-7l-50 34" fill="#fff0dc" stroke="#d9baa7" stroke-width="4" stroke-linejoin="round"/><path d="m143 112 1 48M277 112l-2 48" stroke="#efc9c4" stroke-width="7" stroke-linecap="round"/>
+<ellipse cx="210" cy="205" rx="99" ry="94" fill="#fff5e7" stroke="#d9baa7" stroke-width="4"/><ellipse cx="210" cy="276" rx="58" ry="40" fill="#fff" opacity=".82"/>
+<path d="M174 190q13-16 25 0M221 190q13-16 25 0" fill="none" stroke="#594b5c" stroke-width="6" stroke-linecap="round"/><ellipse cx="210" cy="204" rx="5" ry="4" fill="#e9869d"/><path d="M205 211q5 7 10 0" fill="none" stroke="#ba7888" stroke-width="2.5" stroke-linecap="round"/>
+<ellipse cx="157" cy="207" rx="13" ry="7" fill="#ffb5c6" opacity=".8"/><ellipse cx="263" cy="207" rx="13" ry="7" fill="#ffb5c6" opacity=".8"/>
+<path d="M120 215q-25-6-30 4m31 4q-27 1-32 12m210-20q25-6 30 4m-31 4q27 1 32 12" fill="none" stroke="#c39d90" stroke-width="2"/>
+<!-- laço --> <path d="M187 120q-38-31-39 0 1 19 39 5 38 14 39-5-1-31-39 0z" fill="#ff8fb8" stroke="#db7197" stroke-width="3"/><circle cx="187" cy="122" r="8" fill="#ffb2cb" stroke="#db7197" stroke-width="2"/>
+<!-- cachecol --> <path d="M143 251q66 28 133 0l-4 20q-62 25-125 0z" fill="#ff9ebc"/><path d="m251 264 11 46-21-9-12 19-9-51" fill="#ff9ebc" stroke="#e77da1" stroke-width="2"/><path d="M161 260q49 18 98 0" fill="none" stroke="#ffd7e4" stroke-width="3"/>
+<!-- brasinhos segurando livro --> <path d="M124 269q-26 25-10 42 13 9 28-8M294 266q26 25 10 42-13 9-28-8" fill="none" stroke="#dfbca9" stroke-width="13" stroke-linecap="round"/>
+<rect x="139" y="287" width="143" height="49" rx="8" fill="url(#book)" stroke="#c595ae" stroke-width="3"/><path d="M210 290v42" stroke="#dcb4c9" stroke-width="2"/><path d="M154 301h43m-43 8h36m40-8h38m-38 8h33" stroke="#d3a3bd" stroke-width="2" stroke-linecap="round"/><path d="m211 314 6 6 12-14" fill="none" stroke="#7ac7ab" stroke-width="3" stroke-linecap="round"/>
+</g><g fill="#f28aac"><path d="m62 214 4 9 10 1-8 6 2 10-8-5-8 5 2-10-8-6 10-1z"/><path d="m356 205 3 7 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1z"/></g><g fill="#fff" stroke="#edcadb" stroke-width="2"><circle cx="87" cy="143" r="8"/><circle cx="331" cy="151" r="6"/><circle cx="93" cy="270" r="5"/></g>
+</svg>
