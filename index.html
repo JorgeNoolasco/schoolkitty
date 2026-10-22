@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7fb">
+  <meta name="description" content="SchoolKitty — espaço escolar para organizar turmas, atividades e aprendizagem.">
+  <title>SchoolKitty · Espaço escolar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script>
+  <script src="api.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Navegação principal">
+      <a class="brand" href="#inicio" aria-label="SchoolKitty, início"><span class="brand-mark" aria-hidden="true">✿</span><span>school<span class="brand-accent">kitty</span></span></a>
+      <div class="workspace"><span class="workspace-icon">S</span><span><strong>Minha escola</strong><small>Espaço de aprendizagem</small></span><span class="chevron">⌄</span></div>
+      <nav class="nav-list">
+        <p class="nav-label">MENU</p>
+        <a class="nav-link active" href="#inicio" data-page="inicio"><span>⌂</span>Início</a>
+        <a class="nav-link" href="#turmas" data-page="turmas"><span>▦</span>Minhas turmas</a>
+        <a class="nav-link" href="#atividades" data-page="atividades"><span>☷</span>Atividades</a>
+        <a class="nav-link" href="#calendario" data-page="calendario"><span>▣</span>Calendário</a>
+        <p class="nav-label nav-label-spaced">GESTÃO ESCOLAR</p>
+        <a class="nav-link" href="#alunos" data-page="alunos"><span>♙</span>Alunos</a>
+        <a class="nav-link" href="#professores" data-page="professores"><span>♧</span>Professores</a>
+        <a class="nav-link" href="#cursos" data-page="cursos"><span>▤</span>Cursos</a>
+        <a class="nav-link" href="#matriculas" data-page="matriculas"><span>＋</span>Matrículas</a>
+        <a class="nav-link" href="#notas" data-page="notas"><span>☆</span>Notas</a>
+      </nav>
+      <div class="sidebar-bottom"><div class="help-card"><span class="help-sparkle">✦</span><strong>Um bom dia para aprender!</strong><p>Pequenos passos também levam longe.</p></div><a class="nav-link" href="#perfil" data-page="perfil"><span>⚙</span>Perfil e preferências</a><button class="nav-link logout" id="logoutBtn" type="button"><span>↪</span>Sair</button><div class="user-mini"><span class="avatar avatar-pink">♡</span><span><strong>Visitante</strong><small>Conecte sua conta</small></span><span class="more">···</span></div></div>
+    </aside>
+    <main id="conteudo" class="main-area">
+      <header class="topbar"><button class="icon-button menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button><div class="breadcrumb"><span>Espaço escolar</span><span class="slash">/</span><strong id="pageCrumb">Início</strong></div><div class="top-actions"><span class="today-label" id="todayLabel"></span><button class="icon-button notification-button" aria-label="Notificações">♧<i></i></button><span class="avatar avatar-lilac">S</span></div></header>
+      <div class="content-wrap">
+        <section class="welcome-row"><div><p class="eyebrow">QUARTA-FEIRA, 22 DE OUTUBRO</p><h1 id="pageTitle">Olá, que bom ter você por aqui <span class="wave">✦</span></h1><p class="welcome-subtitle">Seu cantinho de aprendizagem está pronto para hoje.</p></div><button class="button button-primary" id="quickAction">＋ <span>Nova turma</span></button></section>
+        <section class="hero-card"><div class="hero-copy"><span class="hero-kicker"><span>✧</span> SEU ESPAÇO, SEU RITMO</span><h2>Aprender fica mais leve<br>quando fazemos juntos.</h2><p>Organize suas turmas e acompanhe cada conquista pelo caminho.</p><a class="hero-link" href="#turmas">Explorar minhas turmas <span>→</span></a></div><div class="hero-art" aria-hidden="true"><div class="sun-orb"></div><div class="book book-back"></div><div class="book book-front"><span>ABC</span><i>✿</i></div><div class="floating-star star-one">✦</div><div class="floating-star star-two">✧</div><div class="kitty-bow">♡</div></div><span class="hero-dots" aria-hidden="true">· · ·</span></section>
+        <section class="stats-grid" aria-label="Resumo escolar"><article class="stat-card"><span class="stat-icon icon-rose">▦</span><span class="stat-label">Minhas turmas</span><strong id="statTurmas">—</strong><small>turmas ativas</small><span class="stat-decoration">✧</span></article><article class="stat-card"><span class="stat-icon icon-lilac">☷</span><span class="stat-label">Atividades pendentes</span><strong id="statAtividades">—</strong><small>para acompanhar</small><span class="stat-decoration">✧</span></article><article class="stat-card"><span class="stat-icon icon-peach">♙</span><span class="stat-label">Alunos</span><strong id="statAlunos">—</strong><small>na comunidade</small><span class="stat-decoration">✧</span></article><article class="stat-card"><span class="stat-icon icon-mint">☆</span><span class="stat-label">Próximos prazos</span><strong id="statPrazos">—</strong><small>no calendário</small><span class="stat-decoration">✧</span></article></section>
+        <div class="dashboard-grid"><section class="panel classes-panel"><div class="panel-heading"><div><span class="section-kicker">SEU ESPAÇO DE APRENDIZAGEM</span><h2>Minhas turmas <span class="tiny-flower">✿</span></h2></div><a class="text-link" href="#turmas">Ver todas <span>→</span></a></div><div id="classList" class="class-grid"><div class="loading-state">Conectando à API…</div></div></section><aside class="panel agenda-panel"><div class="panel-heading"><div><span class="section-kicker">FIQUE POR DENTRO</span><h2>Agenda <span class="tiny-flower">✿</span></h2></div><a class="mini-calendar-link" href="#calendario">▣</a></div><div id="agendaList" class="agenda-list"><div class="loading-state">Carregando agenda…</div></div><a class="agenda-footer" href="#calendario">Abrir calendário <span>→</span></a></aside></div>
+        <section class="panel activity-panel"><div class="panel-heading"><div><span class="section-kicker">ACOMPANHE DE PERTO</span><h2>Atividades recentes <span class="tiny-flower">✿</span></h2></div><a class="text-link" href="#atividades">Ver atividades <span>→</span></a></div><div id="activityList" class="activity-list"><div class="loading-state">Carregando atividades…</div></div></section>
+        <footer class="footer-note"><span>Feito com <span class="heart">♥</span> para aprender juntinhos</span><span>SchoolKitty · Espaço escolar</span></footer>
+      </div>
+    </main>
+  </div>
+  <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <dialog id="actionDialog" class="action-dialog"><form method="dialog"><button class="dialog-close" aria-label="Fechar">×</button><span class="section-kicker">SCHOOLKITTY</span><h2 id="dialogTitle">Nova turma</h2><p id="dialogBody">Esta ação ficará disponível quando a API escolar estiver configurada.</p><button class="button button-primary" value="close">Entendi</button></form></dialog>
+</body>
+</html>
